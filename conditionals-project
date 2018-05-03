@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>p5js Template</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.3/p5.js"></script>
+
+    <script>
+        var box1x = 800;
+        var box2x = 500;
+        var box3x = 700;
+        var box4x = 100;
+        var jump = 384; //Y-Axis
+        
+        function setup() {
+            createCanvas(800, 600);
+        }
+
+        function draw() {
+            background(25, 25, 112);
+            noStroke();
+            
+            // Cloud decoration
+            fill(255, 255, 255)
+            ellipse(160, 110, 155, 110)
+            ellipse(260, 110, 155, 110)
+            ellipse(210, 110, 155, 170)
+
+            // Sun decoration
+            fill(255, 215, 0, 200)
+            ellipse(650, 100, 150, 150);
+
+            fill(255, 25, 0, 20)
+            ellipse(650, 100, 140, );
+
+            fill(255, 255, 153, 100)
+            ellipse(650, 100, 120, 120);
+
+            fill(255, 255, 0, 80)
+            ellipse(650, 100, 100, );
+
+            //buildings
+            fill(192, 192, 192, 80);
+            rect(500, 200, 200, 400); 
+            rect(710, 240, 130, 400); //left 
+            rect(10, 190, 140, 750);  //right
+            rect(240, 300, 250, 300); //2nd right 
+
+            // Set circle as main object
+            fill(255, 105, 180);     
+            ellipse(30, jump, 30, 30);
+            jump = constrain(jump, 285, 374);   
+            jump += 10
+
+            // Click mouse to make circle jump
+            if (mouseIsPressed == true){
+                jump -= 15;
+            }
+            
+            // Platform  
+            fill(255, 150, 0);
+            rect(0, 400, 800, 2);
+            fill(0);
+            rect(0, 402, 800, 10);
+
+            fill(255, 150)
+            rect(0, 400, 800, 10);
+            fill(80, 200, 100, 80)
+            rect(0, 402, 800, 50);
+            fill(169, 169, 169)
+            rect(0, 440, 800, 10);
+
+
+            // First box OBSTACLE
+            //fill(255, 0, 0) //red
+            //rect(box3x, 384, 25, 15);
+            //box1x -= 1;
+
+            // First box OBSTACLE
+            fill(0, 128, 0) //green
+            rect(box2x, 384, 25, 15);
+            box2x -= 10;
+
+            // Second box OBSTACLE
+            //fill(255, 255, 51) //yellow
+            //rect(box1x, 384, 15, 15);
+            //box3x -= 15;
+
+            // Second box OBSTACLE
+            fill(255, 255, 255) //white
+            rect(box4x, 384, 15, 15);
+            box4x -= 4;
+
+            // Loop animation
+            if (box1x < 0) {
+                box1x = 800;
+            }
+            if (box2x < 0) {
+                box2x = 800;
+            }
+            if (box3x < 0) {
+                box3x = 800;
+            }
+            if (box4x < 0) {
+                box4x = 800;
+            }
+
+
+        }
+    </script>
+</head>
+<body>
+    <div id="code" class="container-fluid">
+        <script src="https://gist-it.appspot.com/github/joeyz3948/p5js/blob/master/conditionals-project.html?footer=0"></script>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        $(window).bind("load", function() {
+            $('#code').before($('#defaultCanvas0').remove());
+        });
+    </script>
+</body>
+
+
+</html>

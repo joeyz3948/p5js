@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>Pong</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.13/p5.js"></script>
+    <script>
+        var ballX; //ball moving left or right 
+        var ballY; //ball moving up or down 
+        var ballSpeedX = 10; // speed of the ball moving left or right 
+        var ballSpeedY = 10; // speed of the ball moving up or down
+        var paddleHeight = 30; //paddle’s height up and down 
+        var L = 250; //length of the paddle 
+        var Sc = 0; //score 
+        var purple //color of back 
+        var Sz //size of the bal 
+        var Lf = 3 //life 
+
+
+        function setup() {
+            createCanvas(800, 600); //size of the page 
+            noCursor(); //no mouse 
+            ballX = random(width); //start in a random place for x 
+            ballY = random(height / 2); //start in a random place for y, but is on the top half because it is not fair to start on the bottom 
+            frameRate(60)
+            purple = 0 //make it into 0 for purple 
+            textSize(25); //size of text
+            Sz = 30 //ball size 
+
+
+            //189, 183, 107
+        }
+
+        function draw() {
+            background(purple, 0, purple); //make it purople  
+            moveBall(); //the ball is moving with a constant speed 
+            checkCollide(); //the bounciness of it ball of the top, left, and right, and the paddle 
+            drawPaddle(); //drawing the paddle 
+            drawBall(); //drawing the ball
+            textSize(40); //score size
+            fill(192, 192, 192); //make the color gray
+            text("Score =  " + Sc, 450, 60); //make score call score and add once
+            Sz = constrain(Sz, 10, 30) //make ball constrain a certain size (10,30)
+            L = constrain(L, 50, 250) //make the paddle a certain size (50,250)
+
+            text("Lifes = " + Lf, 70, 60) //make text show lifes 
+
+
+
+
+
+
+            if (mouseX > 400) { //when x is right of the scren it add purple 
+                purple = purple + 5; //it add faster
+            }
+            else if (mouseX < 400) { //mouse in the left is turn darker 
+                purple = purple - 4; //speed it add 
+            }
+            purple = constrain(purple, 0, purple); //make purple at 255 
+            console.log(purple);
+        }
+
+
+        function keyPressed() {
+            if (keyCode == 32) {
+                loop(); //restes 
+            }
+
+            else {
+                return false;
+            }
+        }
+
+
+        function moveBall() {
+            ballX = ballX + ballSpeedX; //speed of the ball up and down 
+            ballY = ballY + ballSpeedY; //speed of the ball left and right 
+
+            console.log("ballSpeedX: " + ballSpeedX +
+                ", ballSpeedY: " + ballSpeedY); // the speed of the ball 
+        }
+
+        function checkCollide() {
+            if (ballX < 0 || ballX > width) {
+                ballSpeedX = ballSpeedX * -1; //if the ball touch the left or the right side it bounces
+
+
+            }
+            if (ballY < 0) {
+                ballSpeedY = ballSpeedY * -1; //ball only bounces the top of the canvas
+
+
+            }
+            if (ballY > height - paddleHeight) {
+                ballSpeedY += 1
+                if (ballX > mouseX && ballX < mouseX + L) {
+                    ballSpeedY = ballSpeedY * -1; // the ball bounces on the paddle between the 2 edges that is the mouse and the 200
+
+                    Sz-- //size of ball hit borad it -1 
+                    L -= 5 //lenght of paddle -5
+                    Sc = Sc + 193 //score +193 
+                }
+                else {
+                    if (Lf > 0) { //when life hit under zero
+                        Lf = Lf - 1 //each time it hit bot it - 1
+                        ballY = random(25, 50) // it teleport soem where random 
+                        Sc = Sc - 237 // when hit the bottem the score -237  
+                    }
+                    else {
+
+                        textSize(100); //size for the text for game over 
+                        fill(0, 255, 255); //the text color is blue/green 
+                        text("GAME OVER!", width / 10, height / 2); //when loses game over pops out 
+                        noLoop();
+                    }
+                }
+            }
+        }
+
+        function drawBall() {
+            fill(255, 0, 255) //it is the ball color it is purple 
+            noStroke(); //no outline 
+            fill(random, random, random) //it is random
+            ellipse(ballX, ballY, Sz, Sz); //the ball size 
+        }
+
+        function drawPaddle() {
+            fill(0);
+
+            rect(mouseX, height - paddleHeight - 1, L, paddleHeight); //the paddle hight is -1 beause it is going to look funny
+        }
+    </script>
+</head>
+
+<body>
+    <div id="code" class="container-fluid">
+        <script src="https://gist-it.appspot.com/github/joeyz3948/p5js/blob/master/pong.html?footer=0"></script>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        $(window).bind("load", function() {
+            $('#code').before($('#defaultCanvas0').remove());
+        });
+    </script>
+</body>
+
+
+</html>
